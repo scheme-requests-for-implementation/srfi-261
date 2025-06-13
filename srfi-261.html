@@ -55,10 +55,10 @@ advocates for two more modernized, portable and readable alternatives:
 
 <h2 id="rationale">Rationale</h2>
 
-<p>SRFI-97 minimized assumptions made aboud a Scheme system's
+<p>SRFI-97 minimized assumptions made about a Scheme system's
 conformance to that systems may support SRFI Libraries without needing
-to support all of the R<sup>6</sup>RS and R<sup>7</sup>RS library systems, however its
-SRFI library reference format
+to support all of the R<sup>6</sup>RS and R<sup>7</sup>RS library systems.
+However, its SRFI library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifiers&gt; ...)</code>
 introduces portability and toolchain challenges due to the colon
 <code>:</code> character. This design stems from R<sup>6</sup>RS's prohibition
@@ -101,7 +101,7 @@ and $R^7RS$ convenient, an extended naming convention for selecting
 library names, and enumeration of library names selected for all
 currently finalized SRFIs that specify libraries.</p>
 
-<h3 id="portable-srfi-reference">Portable SRFI Reference</h2>
+<h3 id="portable-srfi-reference">Portable SRFI Reference</h3>
 
 <p>A SRFI library reference <em>should</em> at least have the following
 form</p>
@@ -116,7 +116,7 @@ the SRFI number component an identifier, as required by R<sup>6</sup>RS.</p>
 <pre><code>(srfi srfi-1).</code></pre>
 
 <h3 id="readable-and-equivalent-srfi-reference">Readable and Equivalent
-SRFI Reference</h2>
+SRFI Reference</h3>
 <p>A SRFI library reference also <em>should</em> have the following
 readable form</p>
 <pre><code>(srfi &lt;identifier&gt;-&lt;uinteger 10&gt;),</code></pre>
@@ -132,12 +132,12 @@ library's name, as in</p>
 filesystem.</p>
 <blockquote>
 <p>Discussion: Restriction on portable set of characters may cause
-incompatible update to previous proposals. Further disussion is
+incompatible update to previous proposals. Further discussion is
 required.</p>
 </blockquote>
 
 <h3 id="reserved-restricted-and-equivalent-srfi-reference">Reserved,
-Restricted and Equivalent SRFI Reference</h2>
+Restricted and Equivalent SRFI Reference</h3>
 <p><em>Only</em> for SRFI library references with SRFI number
 <em>less</em> than 261 <em>could</em> continually reserve the following
 SRFI-91's naming manner as equivalent reference forms,</p>
@@ -151,9 +151,9 @@ referenced equivalently as in</p>
 <p>or equivalently using the library's name, as in</p>
 <pre><code>(srfi :1 lists). </code></pre>
 
-<h2 id="naming-convention">Naming convention</h1>
+<h2 id="naming-convention">Naming convention</h2>
 
-<p>Mnemonic library names are chossen according to the SRFI-97's
+<p>Mnemonic library names are chosen according to the SRFI-97's
 conventions: Libraries that define datatypes are typically pluralized
 (e.g., arrays, basic-string-ports). Libraries that provide new
 expression forms are named by the name of their new form (e.g.,
@@ -172,12 +172,12 @@ file-name extensions, and library locating affairs <em>can</em> be
 reserved for various implementations.</p>
 <blockquote>
 <p>Discussion: SRFI-103 proposed a standard for locating files
-containing libraries with list-of-symbols library names for unixes and
+containing libraries with list-of-symbols library names for Unixes and
 Windows, and above illegal library file names were suggested to be
 encoded. But it were finally withdrawn.</p>
 </blockquote>
 
-<h3 id="included-srfis">Included SRFIs</h2>
+<h3 id="included-srfis">Included SRFIs</h3>
 <p>Since SRFI-97, SRFI's family has been largely extended, and this
 proposal continues to include SRFIs with criterion the same as
 SRFI-97.</p>
@@ -619,7 +619,7 @@ related LET-syntax</td>
 <tr class="even">
 <td>236</td>
 <td><code>independently</code></td>
-<td>Evaluating expresions in an unspecified order</td>
+<td>Evaluating expressions in an unspecified order</td>
 </tr>
 <tr class="odd">
 <td>238</td>
@@ -655,7 +655,7 @@ Scheme Data</td>
 </tbody>
 </table>
 
-<h3 id="omitted-srfis">Omitted SRFIs</h2>
+<h3 id="omitted-srfis">Omitted SRFIs</h3>
 <p>SRFIs are not libraries, they are requests for <em>features</em>.
 Thus, several SRFIs specify features which cannot be provided as a
 library and those SRFIs are intentionally omitted here. For example,
@@ -769,16 +769,16 @@ provided by a library. Dependent on lexical syntax modification
 <tr class="odd">
 <td>90</td>
 <td>Extensible hash table constructor</td>
-<td>Depdendent on lexical syntax modification (SRFI-88)</td>
+<td>Dependent on lexical syntax modification (SRFI-88)</td>
 </tr>
 <tr class="even">
 <td>94</td>
-<td>Type-Resticted Numberical Functions</td>
-<td>Depdendent on number system modification (SRFI-70)</td>
+<td>Type-Restricted Numerical Functions</td>
+<td>Dependent on number system modification (SRFI-70)</td>
 </tr>
 <tr class="odd">
 <td>96</td>
-<td>SLIB Prerequistites</td>
+<td>SLIB Prerequisites</td>
 <td>A set of uniform interfaces to host the SLIB Scheme library
 system.</td>
 </tr>
@@ -815,12 +815,12 @@ modification (SRFI-107 and SRFI-108).</td>
 </tr>
 <tr class="even">
 <td>110</td>
-<td>Sweet-expressions (t-expresions)</td>
+<td>Sweet-expressions (t-expressions)</td>
 <td>Modifies semantics lexical syntax.</td>
 </tr>
 <tr class="odd">
 <td>111</td>
-<td>Boxies</td>
+<td>Boxes</td>
 <td>Dependent on different Scheme implementations.</td>
 </tr>
 <tr class="even">
@@ -1005,12 +1005,12 @@ modification (SRFI-107 and SRFI-108).</td>
 </tr>
 <tr class="even">
 <td>178</td>
-<td>Bitevector library</td>
+<td>Bitvector library</td>
 <td>Modifies Lexical syntax.</td>
 </tr>
 <tr class="odd">
 <td>179</td>
-<td>Nonempty INtervals and Generalized Arrays (Updated)</td>
+<td>Nonempty Intervals and Generalized Arrays (Updated)</td>
 <td>Modifies array mechanism.</td>
 </tr>
 <tr class="even">
@@ -1052,16 +1052,16 @@ modification (SRFI-107 and SRFI-108).</td>
 <tr class="odd">
 <td>193</td>
 <td>Command line</td>
-<td>Dependent on different Scheme implrementation.</td>
+<td>Dependent on different Scheme implementation.</td>
 </tr>
 <tr class="even">
 <td>194</td>
 <td>Random data generators</td>
-<td>Dependent on different Scheme implrementation.</td>
+<td>Dependent on different Scheme implementation.</td>
 </tr>
 <tr class="odd">
 <td>195</td>
-<td>MUltiple-value boxes</td>
+<td>Multiple-value boxes</td>
 <td>Extends SRFI-111.</td>
 </tr>
 <tr class="even">
@@ -1172,7 +1172,7 @@ Values</td>
 </tr>
 <tr class="odd">
 <td>227</td>
-<td>Opetional Arguments</td>
+<td>Optional Arguments</td>
 <td>I don't know.</td>
 </tr>
 <tr class="even">
@@ -1192,12 +1192,12 @@ Values</td>
 </tr>
 <tr class="odd">
 <td>231</td>
-<td>Intervals and Generalized Arrasy</td>
+<td>Intervals and Generalized Arrays</td>
 <td>Dependent on different Scheme implementation.</td>
 </tr>
 <tr class="even">
 <td>232</td>
-<td>Intervals and Generalized Arrasy</td>
+<td>Intervals and Generalized Arrays</td>
 <td>I don't know.</td>
 </tr>
 <tr class="odd">
@@ -1207,7 +1207,7 @@ Values</td>
 </tr>
 <tr class="even">
 <td>234</td>
-<td>Topologicial Sorting</td>
+<td>Topological Sorting</td>
 <td>I don't know.</td>
 </tr>
 <tr class="odd">
@@ -1277,7 +1277,7 @@ and providing a fairly complete context. I just wrote down his
 discussions.</p>
 <p>Thanks to the participants in the SRFI-261 mailing list who helped me
 refine this SRFI, including Marc Nieper-Wißkirchen, Wolfgang
-Corcoran-Mathe, John Cowan, Arthur A. Gleckle and Daphne
+Corcoran-Mathe, John Cowan, Arthur A. Gleckler and Daphne
 Preston-Kendal.</p>
 
 <h2 id="copyright">Copyright</h2>
