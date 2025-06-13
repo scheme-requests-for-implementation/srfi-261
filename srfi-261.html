@@ -76,7 +76,28 @@ Restricted and Equivalent SRFI Reference</a></li>
 
 <h2 id="issues">Issues</h2>
 
-<p>None at present.</p>
+  <ul>
+    <li><a href="#d1">Discussion</a>: Should this proposal be a patch
+    or replacement to SRFI-97?</li>
+
+    <li><a href="#d2">Discussion</a>: The <code>srfi-</code> prefix is
+    used in order to make the SRFI number component an identifier, as
+    required by R<sup>6</sup>RS.</li>
+
+    <li><a href="#d3">Discussion</a>: Restriction on portable set of
+    characters may cause incompatible update to previous
+    proposals. Further discussion is required.</li>
+
+    <li><a href="#d4">Discussion</a>: SRFI-103 proposed a standard for
+    locating files containing libraries with list-of-symbols library
+    names for Unixes and Windows, and above illegal library file names
+    were suggested to be encoded. But it were finally withdrawn.</li>
+
+    <li><a href="#d5">Discussion</a>: The following table should be
+    checked all our community together, because since SRFI-111, I have
+    been writing reasons purely based on speculation. They actually
+    are beyond my my technical skills and language proficiency.</li>
+</ul>
 
 <h2 id="rationale">Rationale</h2>
 
@@ -88,7 +109,7 @@ However, its SRFI library reference format
 introduces portability and toolchain challenges due to the colon
 <code>:</code> character. This design stems from R<sup>6</sup>RS's prohibition
 against unsigned integers as standalone library name components (e.g.,
-<code>(1 lists)</code> being invalid). This proposal advocates replacing
+<code>(1 lists)</code> is invalid). This proposal advocates replacing
 it with <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
 <code>(srfi &lt;identifier&gt;-&lt;SRFI number&gt;)</code>, resolving
 three core issues:</p>
@@ -111,8 +132,7 @@ that requires no escaping, ensuring cleaner and more human-readable
 URIs.</li>
 </ol>
 <blockquote>
-
-<p>Discussion: Should this proposal be a patch or replacement to
+<p id="d1">Discussion: Should this proposal be a patch or replacement to
 SRFI-97?</p>
 </blockquote>
 
@@ -134,7 +154,7 @@ form</p>
 <p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as a non-terminal given in
 R<sup>6</sup>RS Chapter 4, Lexical syntax.</p>
 <blockquote>
-<p>Discussion: The <code>srfi-</code> prefix is used in order to make
+<p id="d2">Discussion: The <code>srfi-</code> prefix is used in order to make
 the SRFI number component an identifier, as required by R<sup>6</sup>RS.</p>
 </blockquote>
 <p>A SRFI Library can be referenced by number, as in</p>
@@ -156,7 +176,7 @@ library's name, as in</p>
 <p>though which may be incompatibility with Windows's and Unix's
 filesystem.</p>
 <blockquote>
-<p>Discussion: Restriction on portable set of characters may cause
+<p id="d3">Discussion: Restriction on portable set of characters may cause
 incompatible update to previous proposals. Further discussion is
 required.</p>
 </blockquote>
@@ -196,7 +216,7 @@ names <em>may</em> be uniformly named in
 file-name extensions, and library locating affairs <em>can</em> be
 reserved for various implementations.</p>
 <blockquote>
-<p>Discussion: SRFI-103 proposed a standard for locating files
+<p id="d4">Discussion: SRFI-103 proposed a standard for locating files
 containing libraries with list-of-symbols library names for Unixes and
 Windows, and above illegal library file names were suggested to be
 encoded. But it were finally withdrawn.</p>
@@ -689,7 +709,7 @@ semantics of top-level programs cannot be provided as libraries and are
 therefore omitted from this SRFI. The following table lists omitted
 (finalized) SRFIs and the reason for their omission.</p>
 <blockquote>
-<p>Discussion: The following table should be checked all our community
+<p id="d5">Discussion: The following table should be checked all our community
 together, because since SRFI-111, I have been writing reasons purely
 based on speculation. They actually are beyond my my technical skills
 and language proficiency.</p>
