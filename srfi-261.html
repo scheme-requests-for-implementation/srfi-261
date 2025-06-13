@@ -95,7 +95,7 @@ Restricted and Equivalent SRFI Reference</a></li>
     encoded. But it were finally withdrawn.</li>
 
     <li><a href="#d5">Discussion</a>: The following table should be
-    checked all our community together, because
+    checked by our community together, because
     since <a href="https://srfi.schemers.org/srfi-111">SRFI 111</a>, I
     have been writing reasons purely based on speculation. They
     actually are beyond my my technical skills and language
@@ -142,19 +142,18 @@ SRFI 97?</p>
 
 <h2 id="specification">Specification</h2>
 
-<p>This specification is the principle of "minimal modifications", and
-it includes the following: a portable library referencing scheme without
+<p>This specification adopts the principle of minimal modifications, and
+it includes the following: a portable library-referencing scheme without
 changing the existing infrastructure for all past and future SRFI
-libraries, two reserved and restricted reference scheme to make SRFI 97
-and $R^7RS$ convenient, an extended naming convention for selecting
-library names, and enumeration of library names selected for all
+libraries, two reserved and restricted reference schemes to make SRFI 97
+and R<sup>7</sup>RS convenient, an extended naming convention for selecting
+library names, and an enumeration of library names selected for all
 currently finalized SRFIs that specify libraries.</p>
 
 <h3 id="portable-srfi-reference">Portable SRFI Reference</h3>
 
-<p>A SRFI library reference <em>should</em> at least have the following
-form</p>
-<pre><code>(srfi srfi-&lt;uinteger 10&gt;),</code></pre>
+<p>A SRFI library reference <em>should</em> at least have the form</p>
+<pre><code>(srfi srfi-&lt;uinteger 10&gt;)</code>,</pre>
 <p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as
 a non-terminal given in R<sup>6</sup>RS Chapter 4, Lexical syntax.</p>
 <blockquote>
@@ -166,9 +165,9 @@ the SRFI number component an identifier, as required by R<sup>6</sup>RS.</p>
 
 <h3 id="readable-and-equivalent-srfi-reference">Readable and Equivalent
 SRFI Reference</h3>
-<p>A SRFI library reference also <em>should</em> have the following
-readable form</p>
-<pre><code>(srfi &lt;identifier&gt;-&lt;uinteger 10&gt;),</code></pre>
+<p>A SRFI library reference also <em>should</em> have the readable
+form</p>
+<pre><code>(srfi &lt;identifier&gt;-&lt;uinteger 10&gt;)</code>,</pre>
 <p>where <code>&lt;identifier&gt;</code> is one of the included SRFI
 library names defined below, and <code>&lt;uinteger 10&gt;</code> is a
 SRFI number. The non-terminals <code>&lt;uinteger 10&gt;</code> and
@@ -214,8 +213,8 @@ values are named in a descriptive manner derived from their title (e.g.,
 lightweight-testing, real-time-multithreading).</p>
 <p>This naming convention is consistent with the names chosen in the
 R<sup>6</sup>RS Standard Libraries, in which <code>*</code>, <code>?</code> and
-many other characters are allowed. However, such characters are neither
-legal for the filesystem in Windows, Unixes and URI. All SRFI library
+many other characters are allowed. However, such characters are not
+legal for the filesystem in Windows, Unixes, or URIs. All SRFI library
 names <em>may</em> be uniformly named in
 <code>srfi-&lt;uinteger 10&gt;</code> format with additional proper
 file-name extensions, and library locating affairs <em>can</em> be
@@ -224,23 +223,23 @@ reserved for various implementations.</p>
 <p id="d4">Discussion: SRFI 103 proposed a standard for locating files
 containing libraries with list-of-symbols library names for Unixes and
 Windows, and above illegal library file names were suggested to be
-encoded. But it were finally withdrawn.</p>
+encoded. But it was finally withdrawn.</p>
 </blockquote>
 
 <h3 id="included-srfis">Included SRFIs</h3>
 <p>Since SRFI 97, SRFI's family has been largely extended, and this
 proposal continues to include SRFIs with criterion the same as
 SRFI 97.</p>
-<p>The criterion for inclusion in the set of SRFI Libraries is that the
-finalized SRFI only specify a set of bindings which can be provided as a
-library. SRFI Libraries need not be implementable as an $R^6RS$ library,
-but they must specify an interface which could be used as if it were.
-This means, for example, that lexical syntax extensions cannot be a part
-of a SRFI Library. SRFIs that specify global semantic changes to Scheme
-also cannot be SRFI Libraries. For example, a Lazy Scheme SRFI or a SRFI
-that fixed order of evaluation in procedure application could not be a
-SRFI Library because these features cannot be provided as a set of
-bindings.</p>
+<p>The criterion for inclusion in the set of SRFI Libraries is that
+the finalized SRFI only specify a set of bindings which can be
+provided as a library. SRFI Libraries need not be implementable as an
+R<sup>6</sup>RS library, but they must specify an interface which
+could be used as if it were.  This means, for example, that lexical
+syntax extensions cannot be a part of a SRFI Library. SRFIs that
+specify global semantic changes to Scheme also cannot be SRFI
+Libraries. For example, a Lazy Scheme SRFI or a SRFI that fixed order
+of evaluation in procedure application could not be a SRFI Library
+because these features cannot be provided as a set of bindings.</p>
 <p>Some SRFIs specify alternative semantics to standard Scheme
 bindings.  In some cases, such
 as <a href="https://srfi.schemers.org/srfi-5">SRFI
@@ -719,7 +718,7 @@ semantics of top-level programs cannot be provided as libraries and are
 therefore omitted from this SRFI. The following table lists omitted
 (finalized) SRFIs and the reason for their omission.</p>
 <blockquote>
-<p id="d5">Discussion: The following table should be checked all our community
+<p id="d5">Discussion: The following table should be checked by our community
 together, because since SRFI 111, I have been writing reasons purely
 based on speculation. They actually are beyond my my technical skills
 and language proficiency.</p>
@@ -762,22 +761,22 @@ and language proficiency.</p>
 <tr class="odd">
 <td>30</td>
 <td>Nested Multi-line Comments</td>
-<td>Modifies lexical syntax (subsumed by $R^6RS$)</td>
+<td>Modifies lexical syntax (subsumed by R<sup>6</sup>RS)</td>
 </tr>
 <tr class="even">
 <td>34</td>
 <td>Exception Handling for Programs</td>
-<td>Subsumed by $R^6RS$</td>
+<td>Subsumed by R<sup>6</sup>RS</td>
 </tr>
 <tr class="odd">
 <td>35</td>
 <td>Conditions</td>
-<td>Subsumed by $R^6RS$</td>
+<td>Subsumed by R<sup>6</sup>RS</td>
 </tr>
 <tr class="even">
 <td>36</td>
 <td>I/O Conditions</td>
-<td>Subsumed by $R^6RS$</td>
+<td>Subsumed by R<sup>6</sup>RS</td>
 </tr>
 <tr class="odd">
 <td>49</td>
@@ -797,7 +796,7 @@ and language proficiency.</p>
 <tr class="even">
 <td>62</td>
 <td>S-expression comments</td>
-<td>Modifies lexical syntax (subsumed by $R^6RS$)</td>
+<td>Modifies lexical syntax (subsumed by R<sup>6</sup>RS)</td>
 </tr>
 <tr class="odd">
 <td>70</td>
