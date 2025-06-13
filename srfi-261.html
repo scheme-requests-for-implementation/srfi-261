@@ -78,7 +78,7 @@ Restricted and Equivalent SRFI Reference</a></li>
 
   <ul>
     <li><a href="#d1">Discussion</a>: Should this proposal be a patch
-    or replacement to SRFI-97?</li>
+    or replacement to SRFI 97?</li>
 
     <li><a href="#d2">Discussion</a>: The <code>srfi-</code> prefix is
     used in order to make the SRFI number component an identifier, as
@@ -88,20 +88,20 @@ Restricted and Equivalent SRFI Reference</a></li>
     characters may cause incompatible update to previous
     proposals. Further discussion is required.</li>
 
-    <li><a href="#d4">Discussion</a>: SRFI-103 proposed a standard for
+    <li><a href="#d4">Discussion</a>: SRFI 103 proposed a standard for
     locating files containing libraries with list-of-symbols library
     names for Unixes and Windows, and above illegal library file names
     were suggested to be encoded. But it were finally withdrawn.</li>
 
     <li><a href="#d5">Discussion</a>: The following table should be
-    checked all our community together, because since SRFI-111, I have
+    checked all our community together, because since SRFI 111, I have
     been writing reasons purely based on speculation. They actually
     are beyond my my technical skills and language proficiency.</li>
 </ul>
 
 <h2 id="rationale">Rationale</h2>
 
-<p>SRFI-97 minimized assumptions made about a Scheme system's
+<p>SRFI 97 minimized assumptions made about a Scheme system's
 conformance to that systems may support SRFI Libraries without needing
 to support all of the R<sup>6</sup>RS and R<sup>7</sup>RS library systems.
 However, its SRFI library reference format
@@ -133,7 +133,7 @@ URIs.</li>
 </ol>
 <blockquote>
 <p id="d1">Discussion: Should this proposal be a patch or replacement to
-SRFI-97?</p>
+SRFI 97?</p>
 </blockquote>
 
 <h2 id="specification">Specification</h2>
@@ -141,7 +141,7 @@ SRFI-97?</p>
 <p>This specification is the principle of "minimal modifications", and
 it includes the following: a portable library referencing scheme without
 changing the existing infrastructure for all past and future SRFI
-libraries, two reserved and restricted reference scheme to make SRFI-97
+libraries, two reserved and restricted reference scheme to make SRFI 97
 and $R^7RS$ convenient, an extended naming convention for selecting
 library names, and enumeration of library names selected for all
 currently finalized SRFIs that specify libraries.</p>
@@ -185,7 +185,7 @@ required.</p>
 Restricted and Equivalent SRFI Reference</h3>
 <p><em>Only</em> for SRFI library references with SRFI number
 <em>less</em> than 261 <em>could</em> continually reserve the following
-SRFI-91's naming manner as equivalent reference forms,</p>
+SRFI 91's naming manner as equivalent reference forms,</p>
 <pre><code>(srfi :&lt;uinteger 10&gt; &lt;identifier&gt; ...),</code></pre>
 <p>in which the colon prefix <code>:</code> plays the same role to make
 SRFI number <code>&lt;uinteger 10&gt;</code> an identifier, and other
@@ -198,7 +198,7 @@ referenced equivalently as in</p>
 
 <h2 id="naming-convention">Naming convention</h2>
 
-<p>Mnemonic library names are chosen according to the SRFI-97's
+<p>Mnemonic library names are chosen according to the SRFI 97's
 conventions: Libraries that define datatypes are typically pluralized
 (e.g., arrays, basic-string-ports). Libraries that provide new
 expression forms are named by the name of their new form (e.g.,
@@ -216,16 +216,16 @@ names <em>may</em> be uniformly named in
 file-name extensions, and library locating affairs <em>can</em> be
 reserved for various implementations.</p>
 <blockquote>
-<p id="d4">Discussion: SRFI-103 proposed a standard for locating files
+<p id="d4">Discussion: SRFI 103 proposed a standard for locating files
 containing libraries with list-of-symbols library names for Unixes and
 Windows, and above illegal library file names were suggested to be
 encoded. But it were finally withdrawn.</p>
 </blockquote>
 
 <h3 id="included-srfis">Included SRFIs</h3>
-<p>Since SRFI-97, SRFI's family has been largely extended, and this
+<p>Since SRFI 97, SRFI's family has been largely extended, and this
 proposal continues to include SRFIs with criterion the same as
-SRFI-97.</p>
+SRFI 97.</p>
 <p>The criterion for inclusion in the set of SRFI Libraries is that the
 finalized SRFI only specify a set of bindings which can be provided as a
 library. SRFI Libraries need not be implementable as an $R^6RS$ library,
@@ -237,25 +237,25 @@ that fixed order of evaluation in procedure application could not be a
 SRFI Library because these features cannot be provided as a set of
 bindings.</p>
 <p>Some SRFIs specify alternative semantics to standard Scheme bindings.
-In some cases, such as SRFI-5's <code>let</code>, it's clear that making
+In some cases, such as SRFI 5's <code>let</code>, it's clear that making
 the alternative binding for let available as a library binding is
-desirable. Authors that wish to use SRFI-5's <code>let</code>, rather
-than R<sup>6</sup>RS <code>let</code>, simply import the SRFI-5 binding and
+desirable. Authors that wish to use SRFI 5's <code>let</code>, rather
+than R<sup>6</sup>RS <code>let</code>, simply import the SRFI 5 binding and
 exclude the R<sup>6</sup>RS binding for <code>let</code> (or rename to avoid the
 clash).</p>
 <p>Other SRFIs, however, define alternative bindings that are intended
-to be used throughout a Scheme system. For example, SRFI-63's
-<code>equal?</code> and most of SRFI-70, Numbers, are defined like this.
+to be used throughout a Scheme system. For example, SRFI 63's
+<code>equal?</code> and most of SRFI 70, Numbers, are defined like this.
 But if the author intends for these bindings to replace the standard
 bindings, then there is no way of making this feature available as a
 library, so the SRFI cannot be a SRFI Library.</p>
 <p>The approach taken in this SRFI is that a SRFI is excluded as a SRFI
 Library if it explicitly states the binding is to replace the standard
-one. For example, SRFI-70, Numbers, is excluded because it explicitly
+one. For example, SRFI 70, Numbers, is excluded because it explicitly
 revises the text of R<sup>5</sup>RS, thus intending to make a global semantic
 change to the language which cannot be provided as a library. On the
-other hand, SRFI-63, Homogeneous and Heterogeneous Arrays, is included
-and provides a binding for <code>equal?</code> because the SRFI-63
+other hand, SRFI 63, Homogeneous and Heterogeneous Arrays, is included
+and provides a binding for <code>equal?</code> because the SRFI 63
 document does not explicitly state this should replace the standard
 <code>equal?</code> binding.</p>
 <p>The following SRFI library names are defined:</p>
@@ -710,7 +710,7 @@ therefore omitted from this SRFI. The following table lists omitted
 (finalized) SRFIs and the reason for their omission.</p>
 <blockquote>
 <p id="d5">Discussion: The following table should be checked all our community
-together, because since SRFI-111, I have been writing reasons purely
+together, because since SRFI 111, I have been writing reasons purely
 based on speculation. They actually are beyond my my technical skills
 and language proficiency.</p>
 </blockquote>
@@ -809,17 +809,17 @@ and language proficiency.</p>
 <td>Optional positional and named parameters</td>
 <td>Modifies syntax and semantics of application, which cannot be
 provided by a library. Dependent on lexical syntax modification
-(SRFI-88).</td>
+(SRFI 88).</td>
 </tr>
 <tr class="odd">
 <td>90</td>
 <td>Extensible hash table constructor</td>
-<td>Dependent on lexical syntax modification (SRFI-88)</td>
+<td>Dependent on lexical syntax modification (SRFI 88)</td>
 </tr>
 <tr class="even">
 <td>94</td>
 <td>Type-Restricted Numerical Functions</td>
-<td>Dependent on number system modification (SRFI-70)</td>
+<td>Dependent on number system modification (SRFI 70)</td>
 </tr>
 <tr class="odd">
 <td>96</td>
@@ -856,7 +856,7 @@ system.</td>
 <td>109</td>
 <td>Extended string quasi-literal</td>
 <td>Modifies semantics lexical syntax. Dependent on lexical syntax
-modification (SRFI-107 and SRFI-108).</td>
+modification (SRFI 107 and SRFI 108).</td>
 </tr>
 <tr class="even">
 <td>110</td>
@@ -991,12 +991,12 @@ modification (SRFI-107 and SRFI-108).</td>
 <tr class="even">
 <td>162</td>
 <td>Comparators sublibrary</td>
-<td>Extends SRFI-128.</td>
+<td>Extends SRFI 128.</td>
 </tr>
 <tr class="odd">
 <td>164</td>
 <td>Enhanced multi-dimensional Arrays</td>
-<td>Extends SRFI-25.</td>
+<td>Extends SRFI 25.</td>
 </tr>
 <tr class="even">
 <td>165</td>
@@ -1011,12 +1011,12 @@ modification (SRFI-107 and SRFI-108).</td>
 <tr class="even">
 <td>167</td>
 <td>Ordered Key Value Store</td>
-<td>Dependent on SRFI-146.</td>
+<td>Dependent on SRFI 146.</td>
 </tr>
 <tr class="odd">
 <td>168</td>
 <td>Ordered Tuple Store Database</td>
-<td>Dependent on SRFI-146, SRFI-167.</td>
+<td>Dependent on SRFI 146, SRFI 167.</td>
 </tr>
 <tr class="even">
 <td>169</td>
@@ -1087,12 +1087,12 @@ modification (SRFI-107 and SRFI-108).</td>
 <tr class="odd">
 <td>190</td>
 <td>Coroutine Generators</td>
-<td>Dependent on SRFI-139.</td>
+<td>Dependent on SRFI 139.</td>
 </tr>
 <tr class="even">
 <td>192</td>
 <td>Port Positioning</td>
-<td>Dependent on SRFI-181.</td>
+<td>Dependent on SRFI 181.</td>
 </tr>
 <tr class="odd">
 <td>193</td>
@@ -1107,7 +1107,7 @@ modification (SRFI-107 and SRFI-108).</td>
 <tr class="odd">
 <td>195</td>
 <td>Multiple-value boxes</td>
-<td>Extends SRFI-111.</td>
+<td>Extends SRFI 111.</td>
 </tr>
 <tr class="even">
 <td>196</td>
@@ -1320,7 +1320,7 @@ portable SRFI library reference.</p>
 <p>I thank Marc Nieper-Wißkirchen for suggesting that I write this SRFI
 and providing a fairly complete context. I just wrote down his
 discussions.</p>
-<p>Thanks to the participants in the SRFI-261 mailing list who helped me
+<p>Thanks to the participants in the SRFI 261 mailing list who helped me
 refine this SRFI, including Marc Nieper-Wißkirchen, Wolfgang
 Corcoran-Mathe, John Cowan, Arthur A. Gleckler and Daphne
 Preston-Kendal.</p>
