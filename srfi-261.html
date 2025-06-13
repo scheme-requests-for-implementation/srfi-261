@@ -43,10 +43,11 @@ SPDX-License-Identifier: MIT
 <h2 id="abstract">Abstract</h2>
 
 <p>This SRFI proposal addresses systemic compatibility issues exposed by
-the library reference format defined in SRFI 97
+the SRFI 97-defined library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifier&gt; ...)</code> and
-advocates for a modernized, portable alternative:
-<code>(srfi srfi-&lt;SRFI number&gt;  &lt;identifier&gt; ...)</code>.</p>
+advocates for two more modernized, portable and readable alternatives:
+<code>(srfi srfi-&lt;SRFI number&gt;)</code> and
+<code>(srfi &lt;identifier&gt;-&lt;SRFI number&gt;)</code>.</p>
 
 <h2 id="issues">Issues</h2>
 
@@ -54,19 +55,18 @@ advocates for a modernized, portable alternative:
 
 <h2 id="rationale">Rationale</h2>
 
-<p>SRFI 97 minimized assumptions made about a Scheme system's
-conformance so that systems may support SRFI Libraries without needing
-to support all of the R<sup>6</sup>RS and R<sup>7</sup>RS library
-systems.  However, its SRFI library reference format
+<p>SRFI-97 minimized assumptions made aboud a Scheme system's
+conformance to that systems may support SRFI Libraries without needing
+to support all of the R<sup>6</sup>RS and R<sup>7</sup>RS library systems, however its
+SRFI library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifiers&gt; ...)</code>
 introduces portability and toolchain challenges due to the colon
-<code>:</code> character. This design stems from R<sup>6</sup>RS's
-prohibition against unsigned integers as standalone library name
-components (e.g.,
+<code>:</code> character. This design stems from R<sup>6</sup>RS's prohibition
+against unsigned integers as standalone library name components (e.g.,
 <code>(1 lists)</code> being invalid). This proposal advocates replacing
-it with
-<code>(srfi srfi-&lt;SRFI number&gt; &lt;identifier&gt;...)</code>,
-resolving three core issues:</p>
+it with <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
+<code>(srfi &lt;identifier&gt;-&lt;SRFI number&gt;)</code>, resolving
+three core issues:</p>
 <ol>
 <li>Filesystem Incompatibility: Colons are reserved characters in major
 systems (e.g., Windows drive identifiers <code>C://</code>). Mapping
@@ -74,42 +74,1196 @@ systems (e.g., Windows drive identifiers <code>C://</code>). Mapping
 Windows and requires error-prone workarounds elsewhere. Hyphens
 <code>-</code> are universally valid, enabling predictable paths like
 <code>srfi/srfi-1/</code>.</li>
-<li>Modern Scheme Unalignment: R7RS's hierarchical define-library syntax
+<li>Modern Scheme Unalignment: R<sup>7</sup>RS's hierarchical define-library syntax
 favors flat namespaces (e.g., <code>(srfi 1)</code>), while
 implementations like Larceny already phase out colons for newer SRFIs.
 The <code>srfi-</code> prefix retains backward compatibility while
-harmonizing with R7RS trends.</li>
+harmonizing with R<sup>7</sup>RS trends.</li>
 <li>URI Incompatibility: The colon <code>:</code> is a reserved
 character in URI syntax (RFC 3986), mandating percent-encoding (e.g.,
-srfi%3A1), while the hyphen is an unreserved character that requires
-no escaping, ensuring cleaner and more human-readable URIs.</li>
+srfi%3A1), while the hyphen <code>-</code> is an unreserved character
+that requires no escaping, ensuring cleaner and more human-readable
+URIs.</li>
 </ol>
+<blockquote>
+
+<p>Discussion: Should this proposal be a patch or replacement to
+SRFI-97?</p>
+</blockquote>
 
 <h2 id="specification">Specification</h2>
 
-<p>A SRFI library reference <em>should</em> have the form</p>
+<p>This specification is the principle of "minimal modifications", and
+it includes the following: a portable library referencing scheme without
+changing the existing infrastructure for all past and future SRFI
+libraries, two reserved and restricted reference scheme to make SRFI-97
+and $R^7RS$ convenient, an extended naming convention for selecting
+library names, and enumeration of library names selected for all
+currently finalized SRFIs that specify libraries.</p>
 
-<pre><code>(srfi srfi-&lt;uinteger 10&gt; &lt;identifier&gt; ...),</code></pre>
+<h3 id="portable-srfi-reference">Portable SRFI Reference</h2>
 
+<p>A SRFI library reference <em>should</em> at least have the following
+form</p>
+<pre><code>(srfi srfi-&lt;uinteger 10&gt;),</code></pre>
+<p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as a non-terminal given in
+R<sup>6</sup>RS Chapter 4, Lexical syntax.</p>
+<blockquote>
+<p>Discussion: The <code>srfi-</code> prefix is used in order to make
+the SRFI number component an identifier, as required by R<sup>6</sup>RS.</p>
+</blockquote>
+<p>A SRFI Library can be referenced by number, as in</p>
+<pre><code>(srfi srfi-1).</code></pre>
+
+<h3 id="readable-and-equivalent-srfi-reference">Readable and Equivalent
+SRFI Reference</h2>
+<p>A SRFI library reference also <em>should</em> have the following
+readable form</p>
+<pre><code>(srfi &lt;identifier&gt;-&lt;uinteger 10&gt;),</code></pre>
 <p>where <code>&lt;identifier&gt;</code> is one of the included SRFI
 library names defined below, and <code>&lt;uinteger 10&gt;</code> is a
 SRFI number. The non-terminals <code>&lt;uinteger 10&gt;</code> and
 <code>&lt;identifier&gt;</code> are defined as given in R<sup>6</sup>RS Chapter
 4, Lexical syntax.</p>
+<p>A SRFI Library can be referenced <em>equivalently</em> using the
+library's name, as in</p>
+<pre><code>(srfi lists-1), </code></pre>
+<p>though which may be incompatibility with Windows's and Unix's
+filesystem.</p>
 <blockquote>
-
-<p>Discussion: The <code>srfi-</code> prefix is used in order to make
-the SRFI number component an identifier, as required by
-R<sup>6</sup>RS.</p>
+<p>Discussion: Restriction on portable set of characters may cause
+incompatible update to previous proposals. Further disussion is
+required.</p>
 </blockquote>
 
-<p>A SRFI Library can be referenced by number, as in</p>
-
-<pre><code>(srfi srfi-1), </code></pre>
-
+<h3 id="reserved-restricted-and-equivalent-srfi-reference">Reserved,
+Restricted and Equivalent SRFI Reference</h2>
+<p><em>Only</em> for SRFI library references with SRFI number
+<em>less</em> than 261 <em>could</em> continually reserve the following
+SRFI-91's naming manner as equivalent reference forms,</p>
+<pre><code>(srfi :&lt;uinteger 10&gt; &lt;identifier&gt; ...),</code></pre>
+<p>in which the colon prefix <code>:</code> plays the same role to make
+SRFI number <code>&lt;uinteger 10&gt;</code> an identifier, and other
+non-terminals are defined as given in the portable references.</p>
+<p>So that, a SRFI with number <em>less</em> than 261 <em>can</em> be
+referenced equivalently as in</p>
+<pre><code>(srfi :1), </code></pre>
 <p>or equivalently using the library's name, as in</p>
+<pre><code>(srfi :1 lists). </code></pre>
 
-<pre><code>(srfi srfi-1 lists). </code></pre>
+<h2 id="naming-convention">Naming convention</h1>
+
+<p>Mnemonic library names are chossen according to the SRFI-97's
+conventions: Libraries that define datatypes are typically pluralized
+(e.g., arrays, basic-string-ports). Libraries that provide new
+expression forms are named by the name of their new form (e.g.,
+let-values, rec, and-let*). Libraries that define a single procedure (or
+that have a primary procedure) are given the name of the procedure
+(e.g., error, cat). Libraries that provide a large API of syntaxes and
+values are named in a descriptive manner derived from their title (e.g.,
+lightweight-testing, real-time-multithreading).</p>
+<p>This naming convention is consistent with the names chosen in the
+R<sup>6</sup>RS Standard Libraries, in which <code>*</code>, <code>?</code> and
+many other characters are allowed. However, such characters are neither
+legal for the filesystem in Windows, Unixes and URI. All SRFI library
+names <em>may</em> be uniformly named in
+<code>srfi-&lt;uinteger 10&gt;</code> format with additional proper
+file-name extensions, and library locating affairs <em>can</em> be
+reserved for various implementations.</p>
+<blockquote>
+<p>Discussion: SRFI-103 proposed a standard for locating files
+containing libraries with list-of-symbols library names for unixes and
+Windows, and above illegal library file names were suggested to be
+encoded. But it were finally withdrawn.</p>
+</blockquote>
+
+<h3 id="included-srfis">Included SRFIs</h2>
+<p>Since SRFI-97, SRFI's family has been largely extended, and this
+proposal continues to include SRFIs with criterion the same as
+SRFI-97.</p>
+<p>The criterion for inclusion in the set of SRFI Libraries is that the
+finalized SRFI only specify a set of bindings which can be provided as a
+library. SRFI Libraries need not be implementable as an $R^6RS$ library,
+but they must specify an interface which could be used as if it were.
+This means, for example, that lexical syntax extensions cannot be a part
+of a SRFI Library. SRFIs that specify global semantic changes to Scheme
+also cannot be SRFI Libraries. For example, a Lazy Scheme SRFI or a SRFI
+that fixed order of evaluation in procedure application could not be a
+SRFI Library because these features cannot be provided as a set of
+bindings.</p>
+<p>Some SRFIs specify alternative semantics to standard Scheme bindings.
+In some cases, such as SRFI-5's <code>let</code>, it's clear that making
+the alternative binding for let available as a library binding is
+desirable. Authors that wish to use SRFI-5's <code>let</code>, rather
+than R<sup>6</sup>RS <code>let</code>, simply import the SRFI-5 binding and
+exclude the R<sup>6</sup>RS binding for <code>let</code> (or rename to avoid the
+clash).</p>
+<p>Other SRFIs, however, define alternative bindings that are intended
+to be used throughout a Scheme system. For example, SRFI-63's
+<code>equal?</code> and most of SRFI-70, Numbers, are defined like this.
+But if the author intends for these bindings to replace the standard
+bindings, then there is no way of making this feature available as a
+library, so the SRFI cannot be a SRFI Library.</p>
+<p>The approach taken in this SRFI is that a SRFI is excluded as a SRFI
+Library if it explicitly states the binding is to replace the standard
+one. For example, SRFI-70, Numbers, is excluded because it explicitly
+revises the text of R<sup>5</sup>RS, thus intending to make a global semantic
+change to the language which cannot be provided as a library. On the
+other hand, SRFI-63, Homogeneous and Heterogeneous Arrays, is included
+and provides a binding for <code>equal?</code> because the SRFI-63
+document does not explicitly state this should replace the standard
+<code>equal?</code> binding.</p>
+<p>The following SRFI library names are defined:</p>
+
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 23%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>SRFI</th>
+<th>Library names</th>
+<th>Title</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>lists</code></td>
+<td>List Library</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>and-let*</code></td>
+<td>AND-LET<em>: an AND with local bindings, a guarded LET</em> special
+form</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><code>let</code></td>
+<td>A compatible let form with signatures and rest arguments</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>basic-string-ports</code></td>
+<td>Basic String Ports</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td><code>receive</code></td>
+<td>Receive: Binding to multiple values</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td><code>records</code></td>
+<td>Defining Record Types</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td><code>let-values</code></td>
+<td>Syntax for receiving multiple values</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td><code>strings</code></td>
+<td>String Libraries</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td><code>char-sets</code></td>
+<td>Character-Set Library</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td><code>case-lambda</code></td>
+<td>Syntax for procedures of variable arity</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td><code>generalized-set!</code></td>
+<td>Generalized set!</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td><code>multithreading</code></td>
+<td>Multithreading support</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td><code>time</code></td>
+<td>Time Data Types and Procedures</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td><code>real-time-multithreading</code></td>
+<td>Real-time multithreading support</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td><code>scripting</code></td>
+<td>Running Scheme scripts on Unix</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td><code>error</code></td>
+<td>Error reporting mechanism</td>
+</tr>
+<tr class="odd">
+<td>25</td>
+<td><code>multi-dimensional-arrays</code></td>
+<td>Multi-dimensional Array Primitives</td>
+</tr>
+<tr class="even">
+<td>26</td>
+<td><code>cut</code></td>
+<td>Notation for specializing parameters without currying</td>
+</tr>
+<tr class="odd">
+<td>27</td>
+<td><code>random-bits</code></td>
+<td>Sources of Random Bits</td>
+</tr>
+<tr class="even">
+<td>28</td>
+<td><code>basec-format-strings</code></td>
+<td>Basic Format Strings</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td><code>localization</code></td>
+<td>Localization</td>
+</tr>
+<tr class="even">
+<td>31</td>
+<td><code>rec</code></td>
+<td>A special form for recursive evaluation</td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td><code>args-fold</code></td>
+<td>Argument-fold: a program argument processor</td>
+</tr>
+<tr class="even">
+<td>38</td>
+<td><code>with-shared-structure</code></td>
+<td>External Representation for Data with Shared Structure</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td><code>parameters</code></td>
+<td>Parameters objects</td>
+</tr>
+<tr class="even">
+<td>41</td>
+<td><code>streams</code></td>
+<td>Streams</td>
+</tr>
+<tr class="odd">
+<td>42</td>
+<td><code>eager-comprehensions</code></td>
+<td>Eager Comprehensions</td>
+</tr>
+<tr class="even">
+<td>43</td>
+<td><code>vectors</code></td>
+<td>Vector Library</td>
+</tr>
+<tr class="odd">
+<td>44</td>
+<td><code>collections</code></td>
+<td>Collections</td>
+</tr>
+<tr class="even">
+<td>45</td>
+<td><code>lazy</code></td>
+<td>Primitives for Expressing Iterative Lazy Algorithms</td>
+</tr>
+<tr class="odd">
+<td>46</td>
+<td><code>syntax-rules</code></td>
+<td>Basic Syntax-rules Extensions</td>
+</tr>
+<tr class="even">
+<td>47</td>
+<td><code>arrays</code></td>
+<td>Arrays</td>
+</tr>
+<tr class="odd">
+<td>48</td>
+<td><code>intermediate-format-strings</code></td>
+<td>Intermediate Format Strings</td>
+</tr>
+<tr class="even">
+<td>51</td>
+<td><code>rest-values</code></td>
+<td>Handling rest list</td>
+</tr>
+<tr class="odd">
+<td>54</td>
+<td><code>cat</code></td>
+<td>Formatting</td>
+</tr>
+<tr class="even">
+<td>57</td>
+<td><code>records</code></td>
+<td>Records</td>
+</tr>
+<tr class="odd">
+<td>59</td>
+<td><code>vicinities</code></td>
+<td>Vicinity</td>
+</tr>
+<tr class="even">
+<td>60</td>
+<td><code>integers-bits</code></td>
+<td>Integers as Bits</td>
+</tr>
+<tr class="odd">
+<td>61</td>
+<td><code>cond</code></td>
+<td>A more general conditional form</td>
+</tr>
+<tr class="even">
+<td>63</td>
+<td><code>arrays</code></td>
+<td>Homogeneous and Heterogeneous Arrays</td>
+</tr>
+<tr class="odd">
+<td>64</td>
+<td><code>testing</code></td>
+<td>A Scheme API for test suites</td>
+</tr>
+<tr class="even">
+<td>66</td>
+<td><code>octet-vectors</code></td>
+<td>Octet Vectors</td>
+</tr>
+<tr class="odd">
+<td>67</td>
+<td><code>compare-procedures</code></td>
+<td>Compare Procedures</td>
+</tr>
+<tr class="even">
+<td>69</td>
+<td><code>basic-hash-tables</code></td>
+<td>Basic hash tables</td>
+</tr>
+<tr class="odd">
+<td>71</td>
+<td><code>let</code></td>
+<td>Extended LET-syntax for multiple values</td>
+</tr>
+<tr class="even">
+<td>74</td>
+<td><code>blobs</code></td>
+<td>Octet-Addressed Binary Blocks</td>
+</tr>
+<tr class="odd">
+<td>78</td>
+<td><code>lightweight-testing</code></td>
+<td>Lightweight testing</td>
+</tr>
+<tr class="even">
+<td>86</td>
+<td><code>mu-and-nu</code></td>
+<td>MU and NU simulating values &amp; CALL-WITH-VALUES, and their
+related LET-syntax</td>
+</tr>
+<tr class="odd">
+<td>87</td>
+<td><code>case</code></td>
+<td><code>=&gt;</code> in case clauses</td>
+</tr>
+<tr class="even">
+<td>95</td>
+<td><code>sort-and-merging</code></td>
+<td>Sorting and Merging</td>
+</tr>
+<tr class="odd">
+<td>98</td>
+<td><code>os-environment-variables</code></td>
+<td>An interface to access environment variables</td>
+</tr>
+<tr class="even">
+<td>99</td>
+<td><code>records</code></td>
+<td>ERR5RS Records</td>
+</tr>
+<tr class="odd">
+<td>100</td>
+<td><code>define-lambda-object</code></td>
+<td><code>define-lambda-object</code></td>
+</tr>
+<tr class="even">
+<td>101</td>
+<td><code>random-access-lists</code></td>
+<td>Purely Functional Random-Access Pairs and Lists</td>
+</tr>
+<tr class="odd">
+<td>115</td>
+<td><code>regexp</code></td>
+<td>Scheme Regular Expressions</td>
+</tr>
+<tr class="even">
+<td>117</td>
+<td><code>list-queues</code></td>
+<td>Queues based on lists</td>
+</tr>
+<tr class="odd">
+<td>125</td>
+<td><code>hashtables</code></td>
+<td>Intermediate hash tables</td>
+</tr>
+<tr class="even">
+<td>126</td>
+<td><code>r6rs-hashtables</code></td>
+<td>R6RS-based hashtables</td>
+</tr>
+<tr class="odd">
+<td>127</td>
+<td><code>lazy-sequences</code></td>
+<td>Lazy Sequences</td>
+</tr>
+<tr class="even">
+<td>128</td>
+<td><code>comparators</code></td>
+<td>Comparators (reduced)</td>
+</tr>
+<tr class="odd">
+<td>129</td>
+<td><code>titlecase</code></td>
+<td>Titlecase procedures</td>
+</tr>
+<tr class="even">
+<td>130</td>
+<td><code>string-cursors</code></td>
+<td>Cursor-based string library</td>
+</tr>
+<tr class="odd">
+<td>131</td>
+<td><code>records</code></td>
+<td>ERR5RS Record Syntax (reduced)</td>
+</tr>
+<tr class="even">
+<td>132</td>
+<td><code>sorting</code></td>
+<td>Sort Libraries</td>
+</tr>
+<tr class="odd">
+<td>133</td>
+<td><code>vectors</code></td>
+<td>Vector Library (R7RS-compatible)</td>
+</tr>
+<tr class="even">
+<td>134</td>
+<td><code>deques</code></td>
+<td>Immutable Deques</td>
+</tr>
+<tr class="odd">
+<td>141</td>
+<td><code>integer-division</code></td>
+<td>Integer division</td>
+</tr>
+<tr class="even">
+<td>143</td>
+<td><code>fixnums</code></td>
+<td>Fixnums</td>
+</tr>
+<tr class="odd">
+<td>145</td>
+<td><code>assume</code></td>
+<td>Assumptions</td>
+</tr>
+<tr class="even">
+<td>151</td>
+<td><code>bitwise-operations</code></td>
+<td>Bitwise Operations</td>
+</tr>
+<tr class="odd">
+<td>152</td>
+<td><code>strings</code></td>
+<td>String Library (reduced)</td>
+</tr>
+<tr class="even">
+<td>156</td>
+<td><code>predicate-combiners</code></td>
+<td>Syntactic combiners for binary predicates</td>
+</tr>
+<tr class="odd">
+<td>175</td>
+<td><code>ascii</code></td>
+<td>ASCII character library</td>
+</tr>
+<tr class="even">
+<td>176</td>
+<td><code>version</code></td>
+<td>Version flag</td>
+</tr>
+<tr class="odd">
+<td>215</td>
+<td><code>logging</code></td>
+<td>Central Log Exchange</td>
+</tr>
+<tr class="even">
+<td>219</td>
+<td><code>define</code></td>
+<td>Define higher-order lambda</td>
+</tr>
+<tr class="odd">
+<td>223</td>
+<td><code>bisect</code></td>
+<td>Generalized binary search procedures</td>
+</tr>
+<tr class="even">
+<td>236</td>
+<td><code>independently</code></td>
+<td>Evaluating expresions in an unspecified order</td>
+</tr>
+<tr class="odd">
+<td>238</td>
+<td><code>codesets</code></td>
+<td>Codesets</td>
+</tr>
+<tr class="even">
+<td>239</td>
+<td><code>list-case</code></td>
+<td>Desctucturing Lists</td>
+</tr>
+<tr class="odd">
+<td>241</td>
+<td><code>match</code></td>
+<td>Match - Simple pattern-matching Syntax to Express Catamorphisms on
+Scheme Data</td>
+</tr>
+<tr class="even">
+<td>242</td>
+<td><code>cfg</code></td>
+<td>The CFG Language</td>
+</tr>
+<tr class="odd">
+<td>244</td>
+<td><code>define-values</code></td>
+<td>Multiple-value Definitions</td>
+</tr>
+<tr class="even">
+<td>259</td>
+<td><code>tagged-procedures</code></td>
+<td>Tagged procedures with type safety</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="omitted-srfis">Omitted SRFIs</h2>
+<p>SRFIs are not libraries, they are requests for <em>features</em>.
+Thus, several SRFIs specify features which cannot be provided as a
+library and those SRFIs are intentionally omitted here. For example,
+SRFIs which specify extensions to concrete syntax or extensions to the
+semantics of top-level programs cannot be provided as libraries and are
+therefore omitted from this SRFI. The following table lists omitted
+(finalized) SRFIs and the reason for their omission.</p>
+<blockquote>
+<p>Discussion: The following table should be checked all our community
+together, because since SRFI-111, I have been writing reasons purely
+based on speculation. They actually are beyond my my technical skills
+and language proficiency.</p>
+</blockquote>
+
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 23%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>SRFI</th>
+<th>Title</th>
+<th>Reason for Omission</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Feature-based conditional expansion construct</td>
+<td>Modifies semantics of top-level programs.</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Homogeneous numeric vector datatypes</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Feature-based program configuration language</td>
+<td>Defines a configuration language distinct from Scheme.</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td><code>#,</code> external form for data</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>30</td>
+<td>Nested Multi-line Comments</td>
+<td>Modifies lexical syntax (subsumed by $R^6RS$)</td>
+</tr>
+<tr class="even">
+<td>34</td>
+<td>Exception Handling for Programs</td>
+<td>Subsumed by $R^6RS$</td>
+</tr>
+<tr class="odd">
+<td>35</td>
+<td>Conditions</td>
+<td>Subsumed by $R^6RS$</td>
+</tr>
+<tr class="even">
+<td>36</td>
+<td>I/O Conditions</td>
+<td>Subsumed by $R^6RS$</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td>Indentation-sensitive syntax</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="even">
+<td>55</td>
+<td>require-extension</td>
+<td>Modifies semantics of top-level programs.</td>
+</tr>
+<tr class="odd">
+<td>58</td>
+<td>Array Notation</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="even">
+<td>62</td>
+<td>S-expression comments</td>
+<td>Modifies lexical syntax (subsumed by $R^6RS$)</td>
+</tr>
+<tr class="odd">
+<td>70</td>
+<td>Numbers</td>
+<td>Modifies standard semantics for number system.</td>
+</tr>
+<tr class="even">
+<td>72</td>
+<td>Hygienic Macros</td>
+<td>Modifies macro expansion semantics.</td>
+</tr>
+<tr class="odd">
+<td>88</td>
+<td>Keyword objects</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="even">
+<td>89</td>
+<td>Optional positional and named parameters</td>
+<td>Modifies syntax and semantics of application, which cannot be
+provided by a library. Dependent on lexical syntax modification
+(SRFI-88).</td>
+</tr>
+<tr class="odd">
+<td>90</td>
+<td>Extensible hash table constructor</td>
+<td>Depdendent on lexical syntax modification (SRFI-88)</td>
+</tr>
+<tr class="even">
+<td>94</td>
+<td>Type-Resticted Numberical Functions</td>
+<td>Depdendent on number system modification (SRFI-70)</td>
+</tr>
+<tr class="odd">
+<td>96</td>
+<td>SLIB Prerequistites</td>
+<td>A set of uniform interfaces to host the SLIB Scheme library
+system.</td>
+</tr>
+<tr class="even">
+<td>97</td>
+<td>SRFI Libraries</td>
+<td>A set of convention for library references.</td>
+</tr>
+<tr class="odd">
+<td>105</td>
+<td>Curly-infix expressions</td>
+<td>Modifies semantics lexical syntax.</td>
+</tr>
+<tr class="even">
+<td>106</td>
+<td>Basic socket interface</td>
+<td>Dependent on Specific Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>107</td>
+<td>XML reader syntax</td>
+<td>Modifies semantics lexical syntax.</td>
+</tr>
+<tr class="even">
+<td>108</td>
+<td>Named quasi-literal constructors</td>
+<td>Modifies semantics lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>109</td>
+<td>Extended string quasi-literal</td>
+<td>Modifies semantics lexical syntax. Dependent on lexical syntax
+modification (SRFI-107 and SRFI-108).</td>
+</tr>
+<tr class="even">
+<td>110</td>
+<td>Sweet-expressions (t-expresions)</td>
+<td>Modifies semantics lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>111</td>
+<td>Boxies</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>112</td>
+<td>Environment Inquiry</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>113</td>
+<td>Sets and Bags</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>116</td>
+<td>Immutable List Library</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>118</td>
+<td>Simple adjustable-size string</td>
+<td>Dependent on string mechanism implementation.</td>
+</tr>
+<tr class="even">
+<td>119</td>
+<td>wisp: simpler indentation-sensitive scheme</td>
+<td>Modifies semantics lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>120</td>
+<td>Timer APIs</td>
+<td>Dependent on time mechanism implementation.</td>
+</tr>
+<tr class="even">
+<td>123</td>
+<td>Generic accessor and modifier operators</td>
+<td>Dependent on time mechanism implementation.</td>
+</tr>
+<tr class="odd">
+<td>124</td>
+<td>Ephemerons</td>
+<td>Dependent on specific GC implementations.</td>
+</tr>
+<tr class="even">
+<td>134</td>
+<td>Immutable Deques</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>135</td>
+<td>Immutable Texts</td>
+<td>Dependent on string mechanism modification.</td>
+</tr>
+<tr class="even">
+<td>136</td>
+<td>Extensible record types</td>
+<td>Dependent on record type implementations.</td>
+</tr>
+<tr class="odd">
+<td>137</td>
+<td>Minimal Unique Types</td>
+<td>Dependent on specific Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>138</td>
+<td>Compiling Scheme programs to executable</td>
+<td>Dependent on specific Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>139</td>
+<td>Syntax parameters</td>
+<td>Modifies semantics lexical syntax.</td>
+</tr>
+<tr class="even">
+<td>140</td>
+<td>Immutable Strings</td>
+<td>Dependent on specific Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>144</td>
+<td>Flonums</td>
+<td>Dependent on number system implementation.</td>
+</tr>
+<tr class="even">
+<td>146</td>
+<td>Mappings</td>
+<td>Dependent on specific Scheme implementations.</td>
+</tr>
+<tr class="odd">
+<td>147</td>
+<td>Custom macro transformers</td>
+<td>Modifies <code>syntax-rules</code> implementation.</td>
+</tr>
+<tr class="even">
+<td>148</td>
+<td>Eager syntax-rules</td>
+<td>Modifies <code>syntax-rules</code> implementation.</td>
+</tr>
+<tr class="odd">
+<td>149</td>
+<td>Basic Syntax-rules Template Extensions</td>
+<td>Modifies <code>syntax-rules</code> implementation.</td>
+</tr>
+<tr class="even">
+<td>150</td>
+<td>Hygienic ERR5RS Record Syntax (reduced)</td>
+<td>Modifies <code>syntax-rules</code> implementation.</td>
+</tr>
+<tr class="odd">
+<td>153</td>
+<td>Ordered Sets</td>
+<td>Dependent on specific Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>160</td>
+<td>Homogeneous numeric vector libraries</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>161</td>
+<td>Unifiable Boxes</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>162</td>
+<td>Comparators sublibrary</td>
+<td>Extends SRFI-128.</td>
+</tr>
+<tr class="odd">
+<td>164</td>
+<td>Enhanced multi-dimensional Arrays</td>
+<td>Extends SRFI-25.</td>
+</tr>
+<tr class="even">
+<td>165</td>
+<td>The Environment Monad</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>166</td>
+<td>Monadic Formatting</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>167</td>
+<td>Ordered Key Value Store</td>
+<td>Dependent on SRFI-146.</td>
+</tr>
+<tr class="odd">
+<td>168</td>
+<td>Ordered Tuple Store Database</td>
+<td>Dependent on SRFI-146, SRFI-167.</td>
+</tr>
+<tr class="even">
+<td>169</td>
+<td>Underscores in numbers</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>170</td>
+<td>POSIX API</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>171</td>
+<td>Transducers</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>172</td>
+<td>Two Safer Subsets of R7RS</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>173</td>
+<td>Hooks</td>
+<td>Dependent on specific Scheme implementation.</td>
+</tr>
+<tr class="odd">
+<td>174</td>
+<td>POSIX Timespecs</td>
+<td>Dependent on different Scheme implementations.</td>
+</tr>
+<tr class="even">
+<td>178</td>
+<td>Bitevector library</td>
+<td>Modifies Lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>179</td>
+<td>Nonempty INtervals and Generalized Arrays (Updated)</td>
+<td>Modifies array mechanism.</td>
+</tr>
+<tr class="even">
+<td>180</td>
+<td>JSON</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>181</td>
+<td>Custom ports (including transcoded ports)</td>
+<td>Dependent on different Scheme implementation.</td>
+</tr>
+<tr class="even">
+<td>185</td>
+<td>Linear adjustable-length strings</td>
+<td>Dependent on string mechanism implementation.</td>
+</tr>
+<tr class="odd">
+<td>188</td>
+<td>Splicing binding constructs for syntactic keywords</td>
+<td>Modifies <code>let-syntax</code> and
+<code>letrec-syntax</code>.</td>
+</tr>
+<tr class="even">
+<td>189</td>
+<td>Maybe and Either: optional container types</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>190</td>
+<td>Coroutine Generators</td>
+<td>Dependent on SRFI-139.</td>
+</tr>
+<tr class="even">
+<td>192</td>
+<td>Port Positioning</td>
+<td>Dependent on SRFI-181.</td>
+</tr>
+<tr class="odd">
+<td>193</td>
+<td>Command line</td>
+<td>Dependent on different Scheme implrementation.</td>
+</tr>
+<tr class="even">
+<td>194</td>
+<td>Random data generators</td>
+<td>Dependent on different Scheme implrementation.</td>
+</tr>
+<tr class="odd">
+<td>195</td>
+<td>MUltiple-value boxes</td>
+<td>Extends SRFI-111.</td>
+</tr>
+<tr class="even">
+<td>196</td>
+<td>Range Object</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>197</td>
+<td>Pipeline Operators</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>201</td>
+<td>Syntactic Extensions to the Core Scheme Bindings</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>202</td>
+<td>Pattern-matching Variant of the and-let* Form that Supports Multiple
+Values</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>203</td>
+<td>A Simple Picture Language in the Style of SICP</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>206</td>
+<td>Auxiliary Syntax Keywords</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>207</td>
+<td>String-notated bytevectors</td>
+<td>Modifies lexical syntax.</td>
+</tr>
+<tr class="odd">
+<td>208</td>
+<td>NaN procedures</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>209</td>
+<td>Enums and Enum Sets</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>210</td>
+<td>Procedures and Syntax for Multiple Values</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>211</td>
+<td>Scheme Macro Libraries</td>
+<td>Has several distinct identifiers.</td>
+</tr>
+<tr class="odd">
+<td>212</td>
+<td>Aliases</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>213</td>
+<td>Identifier Properties</td>
+<td>Dependent on different Scheme implementation.</td>
+</tr>
+<tr class="odd">
+<td>214</td>
+<td>Flexvectors</td>
+<td>Dependent on different Scheme implementation.</td>
+</tr>
+<tr class="even">
+<td>216</td>
+<td>SICP Prerequisites (Portable)</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>217</td>
+<td>Integer Sets</td>
+<td>Dependent on different Scheme implementation.</td>
+</tr>
+<tr class="even">
+<td>221</td>
+<td>Define higher-order lambda</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>222</td>
+<td>Compound Objects</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>224</td>
+<td>Integer Mappings</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>225</td>
+<td>Dictionaries</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>226</td>
+<td>Control Features</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>227</td>
+<td>Opetional Arguments</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>228</td>
+<td>Composing Comparators</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>229</td>
+<td>Tagged Procedures</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>230</td>
+<td>Atomic Operations</td>
+<td>Dependent on different Scheme implementation.</td>
+</tr>
+<tr class="odd">
+<td>231</td>
+<td>Intervals and Generalized Arrasy</td>
+<td>Dependent on different Scheme implementation.</td>
+</tr>
+<tr class="even">
+<td>232</td>
+<td>Intervals and Generalized Arrasy</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>233</td>
+<td>INI files</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>234</td>
+<td>Topologicial Sorting</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>237</td>
+<td>Combinators</td>
+<td>Has several distinct identifiers.</td>
+</tr>
+<tr class="even">
+<td>240</td>
+<td>Reconciled Records</td>
+<td>Has several distinct identifiers.</td>
+</tr>
+<tr class="odd">
+<td>247</td>
+<td>Syntactic Monads</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>248</td>
+<td>Minimal delimited continuations</td>
+<td>Dependent on specific continuation mechanism.</td>
+</tr>
+<tr class="odd">
+<td>251</td>
+<td>Mixing groups of definitions with expressions within bodies</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>252</td>
+<td>Property Testing</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>253</td>
+<td>Data (Type-)Checking</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>255</td>
+<td>Restarting conditions</td>
+<td>I don't know.</td>
+</tr>
+<tr class="odd">
+<td>258</td>
+<td>Uninterned symbols</td>
+<td>I don't know.</td>
+</tr>
+<tr class="even">
+<td>260</td>
+<td>Generated Symbols</td>
+<td>I don't know.</td>
+</tr>
+</tbody>
+</table>
+
+
 
 <h2 id="implementation">Implementation</h2>
 
@@ -121,10 +1275,14 @@ portable SRFI library reference.</p>
 <p>I thank Marc Nieper-Wißkirchen for suggesting that I write this SRFI
 and providing a fairly complete context. I just wrote down his
 discussions.</p>
+<p>Thanks to the participants in the SRFI-261 mailing list who helped me
+refine this SRFI, including Marc Nieper-Wißkirchen, Wolfgang
+Corcoran-Mathe, John Cowan, Arthur A. Gleckle and Daphne
+Preston-Kendal.</p>
 
 <h2 id="copyright">Copyright</h2>
 
-<p>&copy; 2025 WANG Zheng (ufo5260987423).</p>
+<p>© 2025 WANG Zheng (ufo5260987423).</p>
 
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
