@@ -43,7 +43,7 @@ SPDX-License-Identifier: MIT
 <h2 id="abstract">Abstract</h2>
 
 <p>This SRFI proposal addresses systemic compatibility issues exposed by
-the SRFI 97-defined library reference format
+the <a href="https://srfi.schemers.org/srfi-97">SRFI-97</a>-defined library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifier&gt; ...)</code> and
 advocates for two more modernized, portable and readable alternatives:
 <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
@@ -88,15 +88,18 @@ Restricted and Equivalent SRFI Reference</a></li>
     characters may cause incompatible update to previous
     proposals. Further discussion is required.</li>
 
-    <li><a href="#d4">Discussion</a>: SRFI 103 proposed a standard for
-    locating files containing libraries with list-of-symbols library
-    names for Unixes and Windows, and above illegal library file names
-    were suggested to be encoded. But it were finally withdrawn.</li>
+    <li><a href="#d4">Discussion</a>: <a href="https://srfi.schemers.org/srfi-103">SRFI
+    103</a> proposed a standard for locating files containing
+    libraries with list-of-symbols library names for Unixes and
+    Windows, and above illegal library file names were suggested to be
+    encoded. But it were finally withdrawn.</li>
 
     <li><a href="#d5">Discussion</a>: The following table should be
-    checked all our community together, because since SRFI 111, I have
-    been writing reasons purely based on speculation. They actually
-    are beyond my my technical skills and language proficiency.</li>
+    checked all our community together, because
+    since <a href="https://srfi.schemers.org/srfi-111">SRFI 111</a>, I
+    have been writing reasons purely based on speculation. They
+    actually are beyond my my technical skills and language
+    proficiency.</li>
 </ul>
 
 <h2 id="rationale">Rationale</h2>
@@ -120,11 +123,12 @@ systems (e.g., Windows drive identifiers <code>C://</code>). Mapping
 Windows and requires error-prone workarounds elsewhere. Hyphens
 <code>-</code> are universally valid, enabling predictable paths like
 <code>srfi/srfi-1/</code>.</li>
-<li>Modern Scheme Unalignment: R<sup>7</sup>RS's hierarchical define-library syntax
-favors flat namespaces (e.g., <code>(srfi 1)</code>), while
-implementations like Larceny already phase out colons for newer SRFIs.
-The <code>srfi-</code> prefix retains backward compatibility while
-harmonizing with R<sup>7</sup>RS trends.</li>
+<li>Modern Scheme Unalignment: R<sup>7</sup>RS's hierarchical
+define-library syntax favors flat namespaces (e.g., <code>(srfi
+1)</code>), while implementations like Larceny already phase out
+colons for newer SRFIs.  The <code>srfi-</code> prefix retains
+backward compatibility while harmonizing with R<sup>7</sup>RS
+trends.</li>
 <li>URI Incompatibility: The colon <code>:</code> is a reserved
 character in URI syntax (RFC 3986), mandating percent-encoding (e.g.,
 srfi%3A1), while the hyphen <code>-</code> is an unreserved character
@@ -151,8 +155,8 @@ currently finalized SRFIs that specify libraries.</p>
 <p>A SRFI library reference <em>should</em> at least have the following
 form</p>
 <pre><code>(srfi srfi-&lt;uinteger 10&gt;),</code></pre>
-<p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as a non-terminal given in
-R<sup>6</sup>RS Chapter 4, Lexical syntax.</p>
+<p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as
+a non-terminal given in R<sup>6</sup>RS Chapter 4, Lexical syntax.</p>
 <blockquote>
 <p id="d2">Discussion: The <code>srfi-</code> prefix is used in order to make
 the SRFI number component an identifier, as required by R<sup>6</sup>RS.</p>
@@ -185,7 +189,8 @@ required.</p>
 Restricted and Equivalent SRFI Reference</h3>
 <p><em>Only</em> for SRFI library references with SRFI number
 <em>less</em> than 261 <em>could</em> continually reserve the following
-SRFI 91's naming manner as equivalent reference forms,</p>
+<a href="https://srfi.schemers.org/srfi-91">SRFI 91</a>'s naming
+manner as equivalent reference forms,</p>
 <pre><code>(srfi :&lt;uinteger 10&gt; &lt;identifier&gt; ...),</code></pre>
 <p>in which the colon prefix <code>:</code> plays the same role to make
 SRFI number <code>&lt;uinteger 10&gt;</code> an identifier, and other
@@ -236,19 +241,24 @@ also cannot be SRFI Libraries. For example, a Lazy Scheme SRFI or a SRFI
 that fixed order of evaluation in procedure application could not be a
 SRFI Library because these features cannot be provided as a set of
 bindings.</p>
-<p>Some SRFIs specify alternative semantics to standard Scheme bindings.
-In some cases, such as SRFI 5's <code>let</code>, it's clear that making
-the alternative binding for let available as a library binding is
-desirable. Authors that wish to use SRFI 5's <code>let</code>, rather
-than R<sup>6</sup>RS <code>let</code>, simply import the SRFI 5 binding and
-exclude the R<sup>6</sup>RS binding for <code>let</code> (or rename to avoid the
-clash).</p>
+<p>Some SRFIs specify alternative semantics to standard Scheme
+bindings.  In some cases, such
+as <a href="https://srfi.schemers.org/srfi-5">SRFI
+5</a>'s <code>let</code>, it's clear that making the alternative
+binding for let available as a library binding is desirable. Authors
+that wish to use SRFI 5's <code>let</code>, rather than
+R<sup>6</sup>RS <code>let</code>, simply import the SRFI 5 binding and
+exclude the R<sup>6</sup>RS binding for <code>let</code> (or rename to
+avoid the clash).</p>
 <p>Other SRFIs, however, define alternative bindings that are intended
-to be used throughout a Scheme system. For example, SRFI 63's
-<code>equal?</code> and most of SRFI 70, Numbers, are defined like this.
-But if the author intends for these bindings to replace the standard
-bindings, then there is no way of making this feature available as a
-library, so the SRFI cannot be a SRFI Library.</p>
+to be used throughout a Scheme system. For
+example, <a href="https://srfi.schemers.org/srfi-63">SRFI 63</a>'s
+<code>equal?</code> and most
+of <a href="https://srfi.schemers.org/srfi-70">SRFI 70</a>, Numbers,
+are defined like this.  But if the author intends for these bindings
+to replace the standard bindings, then there is no way of making this
+feature available as a library, so the SRFI cannot be a SRFI
+Library.</p>
 <p>The approach taken in this SRFI is that a SRFI is excluded as a SRFI
 Library if it explicitly states the binding is to replace the standard
 one. For example, SRFI 70, Numbers, is excluded because it explicitly
@@ -856,7 +866,9 @@ system.</td>
 <td>109</td>
 <td>Extended string quasi-literal</td>
 <td>Modifies semantics lexical syntax. Dependent on lexical syntax
-modification (SRFI 107 and SRFI 108).</td>
+modification (<a href="https://srfi.schemers.org/srfi-107">SRFI
+107</a> and <a href="https://srfi.schemers.org/srfi-108">SRFI
+108</a>).</td>
 </tr>
 <tr class="even">
 <td>110</td>
@@ -991,12 +1003,12 @@ modification (SRFI 107 and SRFI 108).</td>
 <tr class="even">
 <td>162</td>
 <td>Comparators sublibrary</td>
-<td>Extends SRFI 128.</td>
+<td>Extends <a href="https://srfi.schemers.org/srfi-128">SRFI 128</a>.</td>
 </tr>
 <tr class="odd">
 <td>164</td>
 <td>Enhanced multi-dimensional Arrays</td>
-<td>Extends SRFI 25.</td>
+<td>Extends <a href="https://srfi.schemers.org/srfi-25">SRFI 25</a>.</td>
 </tr>
 <tr class="even">
 <td>165</td>
@@ -1011,12 +1023,13 @@ modification (SRFI 107 and SRFI 108).</td>
 <tr class="even">
 <td>167</td>
 <td>Ordered Key Value Store</td>
-<td>Dependent on SRFI 146.</td>
+<td>Dependent on <a href="https://srfi.schemers.org/srfi-146">SRFI 146</a>.</td>
 </tr>
 <tr class="odd">
 <td>168</td>
 <td>Ordered Tuple Store Database</td>
-<td>Dependent on SRFI 146, SRFI 167.</td>
+<td>Dependent on SRFI
+146, <a href="https://srfi.schemers.org/srfi-167">SRFI 167</a>.</td>
 </tr>
 <tr class="even">
 <td>169</td>
@@ -1087,12 +1100,12 @@ modification (SRFI 107 and SRFI 108).</td>
 <tr class="odd">
 <td>190</td>
 <td>Coroutine Generators</td>
-<td>Dependent on SRFI 139.</td>
+<td>Dependent on <a href="https://srfi.schemers.org/srfi-139">SRFI 139</a>.</td>
 </tr>
 <tr class="even">
 <td>192</td>
 <td>Port Positioning</td>
-<td>Dependent on SRFI 181.</td>
+<td>Dependent on <a href="https://srfi.schemers.org/srfi-181">SRFI 181</a>.</td>
 </tr>
 <tr class="odd">
 <td>193</td>
