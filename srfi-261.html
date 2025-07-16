@@ -45,7 +45,7 @@ SPDX-License-Identifier: MIT
 <h2 id="abstract">Abstract</h2>
 
 <p>This SRFI proposal addresses systemic compatibility issues exposed by
-the <a href="https://srfi.schemers.org/srfi-97">SRFI-97</a>-defined library reference format
+the <a href="https://srfi.schemers.org/srfi-97/">SRFI-97</a>-defined library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifier&gt; ...)</code> and
 advocates for two more modernized, portable and readable alternatives:
 <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
@@ -90,7 +90,7 @@ Restricted and Equivalent SRFI Reference</a></li>
     characters may cause incompatible update to previous
     proposals. Further discussion is required.</li>
 
-    <li><a href="#d4">Discussion</a>: <a href="https://srfi.schemers.org/srfi-103">SRFI
+    <li><a href="#d4">Discussion</a>: <a href="https://srfi.schemers.org/srfi-103/">SRFI
     103</a> proposed a standard for locating files containing
     libraries with list-of-symbols library names for Unixes and
     Windows, and above illegal library file names were suggested to be
@@ -183,7 +183,7 @@ required.</p>
 Restricted and Equivalent SRFI Reference</h3>
 <p><em>Only</em> for SRFI library references with SRFI number
 <em>less</em> than 261 <em>could</em> continually reserve the following
-<a href="https://srfi.schemers.org/srfi-91">SRFI 91</a>'s naming
+<a href="https://srfi.schemers.org/srfi-91/">SRFI 91</a>'s naming
 manner as equivalent reference forms,</p>
 <pre><code>(srfi :&lt;uinteger 10&gt; &lt;identifier&gt; ...),</code></pre>
 <p>in which the colon prefix <code>:</code> plays the same role to make
@@ -237,7 +237,7 @@ of evaluation in procedure application could not be a SRFI Library
 because these features cannot be provided as a set of bindings.</p>
 <p>Some SRFIs specify alternative semantics to standard Scheme
 bindings.  In some cases, such
-as <a href="https://srfi.schemers.org/srfi-5">SRFI
+as <a href="https://srfi.schemers.org/srfi-5/">SRFI
 5</a>'s <code>let</code>, it's clear that making the alternative
 binding for let available as a library binding is desirable. Authors
 that wish to use SRFI 5's <code>let</code>, rather than
@@ -246,9 +246,9 @@ exclude the R<sup>6</sup>RS binding for <code>let</code> (or rename to
 avoid the clash).</p>
 <p>Other SRFIs, however, define alternative bindings that are intended
 to be used throughout a Scheme system. For
-example, <a href="https://srfi.schemers.org/srfi-63">SRFI 63</a>'s
+example, <a href="https://srfi.schemers.org/srfi-63/">SRFI 63</a>'s
 <code>equal?</code> and most
-of <a href="https://srfi.schemers.org/srfi-70">SRFI 70</a>, Numbers,
+of <a href="https://srfi.schemers.org/srfi-70/">SRFI 70</a>, Numbers,
 are defined like this.  But if the author intends for these bindings
 to replace the standard bindings, then there is no way of making this
 feature available as a library, so the SRFI cannot be a SRFI
