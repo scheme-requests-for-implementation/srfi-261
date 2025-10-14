@@ -46,7 +46,7 @@ SPDX-License-Identifier: MIT
 <h2 id="abstract">Abstract</h2>
 
 <p>This SRFI proposal addresses systemic compatibility issues exposed by
-the <a href="https://srfi.schemers.org/srfi-97/">SRFI-97</a>-defined library reference format
+the <a href="https://srfi.schemers.org/srfi-97/">SRFI 97</a>-defined library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifier&gt; ...)</code> and
 advocates for two more modernized, portable and readable alternatives:
 <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
@@ -94,6 +94,10 @@ Restricted and Equivalent SRFI Reference</a></li>
     libraries with list-of-symbols library names for Unixes and
     Windows, and above illegal library file names were suggested to be
     encoded. But it were finally withdrawn.</li>
+
+    <li><a href="#d5">Discussion</a>: 
+      From a current perspective, <a href="https://srfi.schemers.org/srfi-103/">SRFI 97</a> at least presents an established fact, and the goal of this proposal is to propose a portable format. What I have been skeptical about is whether a format that is only valid for R7RS is portable. I have neither the ability nor the intention to discuss this, I am just recording some people's views here. That's how it was decided.
+  </li>
 </ul>
 
 <h2 id="rationale">Rationale</h2>
@@ -176,7 +180,7 @@ filesystem.</p>
 incompatible update to previous proposals;</p>
 <p>Second, someone thinks this form of not faithful to the idea of using
 structured S-expression to name libraries because the name is
-concatenated with the number, instead of the colon in SRFI-97, as a string; </p>
+concatenated with the number, instead of the colon in SRFI 97, as a string; </p>
 </blockquote>
 
 <h3 id="reserved-restricted-and-equivalent-srfi-reference">Reserved,
@@ -194,6 +198,18 @@ referenced equivalently as in</p>
 <pre><code>(srfi :1), </code></pre>
 <p>or equivalently using the library's name, as in</p>
 <pre><code>(srfi :1 lists). </code></pre>
+
+<h3 id="R7RS restricted and equivalent format"> R7RS Restricted and Equivalent Format </h3>
+
+<p>A SRFI library reference <em>could</em> have an optional R7RS restricted form</p>
+<pre><code>(srfi &lt;uinteger 10&gt;)</code>,</pre>
+<p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as
+a non-terminal given in R<sup>6</sup>RS Chapter 2, Lexical conventions.</p>
+<blockquote>
+<p id="d5">Discussion: From a current perspective, SRFI 97 at least presents an established fact, and the goal of this proposal is to propose a portable format. What I have been skeptical about is whether a format that is only valid for R7RS is portable. I have neither the ability nor the intention to discuss this, I am just recording some people's views here. That's how it was decided.
+</blockquote>
+<p>A SRFI Library can be referenced by number, as in</p>
+<pre><code>(srfi 1).</code></pre>
 
 <h2 id="naming-convention">Naming convention</h2>
 
