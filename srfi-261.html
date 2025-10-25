@@ -46,7 +46,7 @@ SPDX-License-Identifier: MIT
 <h2 id="abstract">Abstract</h2>
 
 <p>This SRFI proposal addresses systemic compatibility issues exposed by
-the <a href="https://srfi.schemers.org/srfi-97/">SRFI-97</a>-defined library reference format
+the <a href="https://srfi.schemers.org/srfi-97/">SRFI 97</a>-defined library reference format
 <code>(srfi :&lt;SRFI number&gt; &lt;identifier&gt; ...)</code> and
 advocates for two more modernized, portable and readable alternatives:
 <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
@@ -60,8 +60,8 @@ advocates for two more modernized, portable and readable alternatives:
     <a href="#specification">Specification</a>
     <ul>
       <li><a href="#portable-srfi-reference">Portable SRFI Reference</a></li>
-      <li><a href="#readable-and-equivalent-srfi-reference">Readable and Equivalent
-SRFI Reference</a></li>
+      <!-- <li><a href="#readable-and-equivalent-srfi-reference">Readable and Equivalent
+SRFI Reference</a></li> -->
       <li><a href="#reserved-restricted-and-equivalent-srfi-reference">Reserved,
 Restricted and Equivalent SRFI Reference</a></li>
     </ul>
@@ -87,15 +87,17 @@ Restricted and Equivalent SRFI Reference</a></li>
     used in order to make the SRFI number component an identifier, as
     required by R<sup>6</sup>RS.</li>
 
-    <li><a href="#d3">Discussion</a>: Restriction on portable set of
-    characters may cause incompatible update to previous
-    proposals. Further discussion is required.</li>
+    <li><a href="#d3">Discussion</a>: Someone suggested a more readable form.</li>
 
     <li><a href="#d4">Discussion</a>: <a href="https://srfi.schemers.org/srfi-103/">SRFI
     103</a> proposed a standard for locating files containing
     libraries with list-of-symbols library names for Unixes and
     Windows, and above illegal library file names were suggested to be
     encoded. But it were finally withdrawn.</li>
+
+    <li><a href="#d5">Discussion</a>: 
+      From a current perspective, <a href="https://srfi.schemers.org/srfi-103/">SRFI 97</a> at least presents an established fact, and the goal of this proposal is to propose a portable format. What I have been skeptical about is whether a format that is only valid for R7RS is portable. I have neither the ability nor the intention to discuss this, I am just recording some people's views here. That's how it was decided.
+  </li>
 </ul>
 
 <h2 id="rationale">Rationale</h2>
@@ -159,10 +161,9 @@ the SRFI number component an identifier, as required by R<sup>6</sup>RS.</p>
 <p>A SRFI Library can be referenced by number, as in</p>
 <pre><code>(srfi srfi-1).</code></pre>
 
-<h3 id="readable-and-equivalent-srfi-reference">Readable and Equivalent
-SRFI Reference</h3>
-<p>A SRFI library reference also <em>should</em> have the readable
-form</p>
+<blockquote>
+<p id="d3">Discussion: Someone suggested a more readable form that</p>
+
 <pre><code>(srfi &lt;identifier&gt;-&lt;uinteger 10&gt;)</code>,</pre>
 <p>where <code>&lt;identifier&gt;</code> is one of the included SRFI
 library names defined below, and <code>&lt;uinteger 10&gt;</code> is a
@@ -174,10 +175,12 @@ library's name, as in</p>
 <pre><code>(srfi lists-1), </code></pre>
 <p>though which may be incompatibility with Windows's and Unix's
 filesystem.</p>
-<blockquote>
-<p id="d3">Discussion: Restriction on portable set of characters may cause
-incompatible update to previous proposals. Further discussion is
-required.</p>
+<p> Although I personally like this idea very much, I cannot ignore the opinions of some people who actively participate in the discussion. There are several issues that need to be addressed:</p>
+<p>First, restriction on portable set of characters may cause
+incompatible update to previous proposals;</p>
+<p>Second, someone thinks this form of not faithful to the idea of using
+structured S-expression to name libraries because the name is
+concatenated with the number, instead of the colon in SRFI 97, as a string; </p>
 </blockquote>
 
 <h3 id="reserved-restricted-and-equivalent-srfi-reference">Reserved,
@@ -195,6 +198,18 @@ referenced equivalently as in</p>
 <pre><code>(srfi :1), </code></pre>
 <p>or equivalently using the library's name, as in</p>
 <pre><code>(srfi :1 lists). </code></pre>
+
+<h3 id="R7RS restricted and equivalent format"> R7RS Restricted and Equivalent Format </h3>
+
+<p>A SRFI library reference <em>could</em> have an optional R7RS restricted form</p>
+<pre><code>(srfi &lt;uinteger 10&gt;)</code>,</pre>
+<p>where <code>&lt;uinteger 10&gt;</code> is a SRFI number, defined as
+a non-terminal given in R<sup>6</sup>RS Chapter 2, Lexical conventions.</p>
+<blockquote>
+<p id="d5">Discussion: From a current perspective, SRFI 97 at least presents an established fact, and the goal of this proposal is to propose a portable format. What I have been skeptical about is whether a format that is only valid for R7RS is portable. I have neither the ability nor the intention to discuss this, I am just recording some people's views here. That's how it was decided.
+</blockquote>
+<p>A SRFI Library can be referenced by number, as in</p>
+<pre><code>(srfi 1).</code></pre>
 
 <h2 id="naming-convention">Naming convention</h2>
 
@@ -688,7 +703,7 @@ related LET-syntax</td>
 </tr>
 <tr>
 <td>153</td>
-<td><code>sets</code></td>
+<td><code>ordered-sets</code></td>
 <td>Ordered Sets</td>
 </tr>
 <tr>
@@ -818,7 +833,7 @@ related LET-syntax</td>
 </tr>
 <tr>
 <td>196</td>
-<td><code>range-object</code></td>
+<td><code>ranges</code></td>
 <td>Range Object</td>
 </tr>
 <tr>
@@ -839,7 +854,7 @@ Values</td>
 </tr>
 <tr>
 <td>203</td>
-<td><code>pictures</code></td>
+<td><code>picture-language</code></td>
 <td>A Simple Picture Language in the Style of SICP</td>
 </tr>
 <tr>
@@ -899,13 +914,13 @@ Values</td>
 </tr>
 <tr>
 <td>219</td>
-<td><code>define</code></td>
+<td><code>higher-order-lambda</code></td>
 <td>Define higher-order lambda</td>
 </tr>
 <tr>
 <td>221</td>
-<td><code>higher-order-lambda</code></td>
-<td>Define higher-order lambda</td>
+<td><code>generators&accumulators</code></td>
+<td>Generator/accumulator sub-library</td>
 </tr>
 <tr>
 <td>222</td>
@@ -1030,7 +1045,7 @@ Scheme Data</td>
 </tr>
 <tr>
 <td>251</td>
-<td><code>mixing-definitions-and-expressions</code></td>
+<td><code>body-mixtures</code></td>
 <td>Mixing groups of definitions with expressions within bodies</td>
 </tr>
 <tr>
@@ -1040,7 +1055,7 @@ Scheme Data</td>
 </tr>
 <tr>
 <td>253</td>
-<td><code>type-checing</code></td>
+<td><code>type-checking</code></td>
 <td>Data (Type-)Checking</td>
 </tr>
 <tr>
