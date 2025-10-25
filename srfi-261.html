@@ -102,14 +102,14 @@ Restricted and Equivalent SRFI Reference</a></li>
 <h2 id="rationale">Rationale</h2>
 
 <p>SRFI 97 minimized assumptions made about a Scheme system's
-conformance to that systems may support SRFI Libraries without needing
+conformance so that systems may support SRFI Libraries without needing
 to support all of the R<sup>6</sup>RS and R<sup>7</sup>RS library systems.
-However, its SRFI library reference format
-<code>(srfi :&lt;SRFI number&gt; &lt;identifiers&gt; ...)</code>
+However, its SRFI library reference format,
+<code>(srfi :&lt;SRFI number&gt; &lt;identifiers&gt; ...)</code>,
 introduces portability and toolchain challenges due to the colon
 <code>:</code> character. This design stems from R<sup>6</sup>RS's prohibition
-against unsigned integers as standalone library name components (e.g.,
-<code>(1 lists)</code> is invalid). This proposal advocates replacing
+against unsigned integers as standalone library name components, e.g.
+<code>(1 lists)</code> is invalid. This proposal advocates replacing
 it with <code>(srfi srfi-&lt;SRFI number&gt;)</code> and
 <code>(srfi &lt;identifier&gt;-&lt;SRFI number&gt;)</code>, resolving
 three core issues:</p>
@@ -121,8 +121,8 @@ Windows and requires error-prone workarounds elsewhere. Hyphens
 <code>-</code> are universally valid, enabling predictable paths like
 <code>srfi/srfi-1/</code>.</li>
 <li>Modern Scheme Unalignment: R<sup>7</sup>RS's hierarchical
-define-library syntax favors flat namespaces (e.g., <code>(srfi
-1)</code>), while implementations like Larceny already phase out
+define-library syntax favors flat namespaces (e.g., <code>(srfi 1)</code>),
+while implementations like Larceny already phase out
 colons for newer SRFIs.  The <code>srfi-</code> prefix retains
 backward compatibility while harmonizing with R<sup>7</sup>RS
 trends.</li>
@@ -172,27 +172,27 @@ SRFI number. The non-terminals <code>&lt;uinteger 10&gt;</code> and
 <p>A SRFI Library can be referenced <em>equivalently</em> using the
 library's name, as in</p>
 <pre><code>(srfi lists-1), </code></pre>
-<p>though which may be incompatibility with Windows's and Unix's
+<p>which may be incompatible with Windows's and Unix's
 filesystem.</p>
-<p> Although I personally like this idea very much, I cannot ignore the opinions of some people who actively participate in the discussion. There are several issues that need to be addressed:</p>
-<p>First, restriction on portable set of characters may cause
-incompatible update to previous proposals;</p>
-<p>Second, someone thinks this form of not faithful to the idea of using
-structured S-expression to name libraries because the name is
-concatenated with the number, instead of the colon in SRFI 97, as a string; </p>
+<p> Although I personally like this idea very much, I cannot ignore the opinions of some people who have actively participated in the discussion. There are several issues that need to be addressed:</p>
+<p>First, restriction on the portable set of characters may cause
+incompatible updates to previous proposals;</p>
+<p>Second, someone thinks this form is not faithful to the idea of using
+structured S-expressions to name libraries because the name is
+concatenated with the number, instead of the colon in SRFI 97, as a string.</p>
 </blockquote>
 
 <h3 id="reserved-restricted-and-equivalent-srfi-reference">Reserved,
 Restricted and Equivalent SRFI Reference</h3>
-<p><em>Only</em> for SRFI library references with SRFI number
-<em>less</em> than 261 <em>could</em> continually reserve the following
-<a href="https://srfi.schemers.org/srfi-91/">SRFI 91</a>'s naming
-manner as equivalent reference forms,</p>
+<p><em>Only</em> SRFI library references with SRFI numbers
+<em>less than</em> 261 <em>could</em> continue to reserve names following
+<a href="https://srfi.schemers.org/srfi-97/">SRFI 97</a>'s naming
+convention as equivalent reference forms,</p>
 <pre><code>(srfi :&lt;uinteger 10&gt; &lt;identifier&gt; ...),</code></pre>
-<p>in which the colon prefix <code>:</code> plays the same role to make
-SRFI number <code>&lt;uinteger 10&gt;</code> an identifier, and other
+<p>in which the colon prefix <code>:</code> plays the same role — to make
+SRFI number <code>&lt;uinteger 10&gt;</code> an identifier — and other
 non-terminals are defined as given in the portable references.</p>
-<p>So that, a SRFI with number <em>less</em> than 261 <em>can</em> be
+<p>That way, a SRFI with number <em>less than</em> 261 <em>can</em> be
 referenced equivalently as in</p>
 <pre><code>(srfi :1), </code></pre>
 <p>or equivalently using the library's name, as in</p>
@@ -227,12 +227,12 @@ many other characters are allowed. However, such characters are not
 legal for the filesystem in Windows, Unixes, or URIs. All SRFI library
 names <em>may</em> be uniformly named in
 <code>srfi-&lt;uinteger 10&gt;</code> format with additional proper
-file-name extensions, and library locating affairs <em>can</em> be
+file-name extensions, and library-locating affairs <em>can</em> be
 reserved for various implementations.</p>
 <blockquote>
 <p id="d4">Discussion: SRFI 103 proposed a standard for locating files
 containing libraries with list-of-symbols library names for Unixes and
-Windows, and above illegal library file names were suggested to be
+Windows, and the above illegal library file names were suggested to be
 encoded. But it was finally withdrawn.</p>
 </blockquote>
 
@@ -1083,9 +1083,9 @@ Scheme Data</td>
 <h3 id="omitted-srfis">Omitted SRFIs</h3>
 <p>SRFIs are not libraries, they are requests for <em>features</em>.
 Thus, several SRFIs specify features which cannot be provided as a
-library and those SRFIs are intentionally omitted here. For example,
+library, and those SRFIs are intentionally omitted here. For example,
 SRFIs which specify extensions to concrete syntax or extensions to the
-semantics of top-level programs cannot be provided as libraries and are
+semantics of top-level programs cannot be provided as libraries, and are
 therefore omitted from this SRFI. The following table lists omitted
 (finalized) SRFIs and the reason for their omission.</p>
 <table>
