@@ -11,7 +11,7 @@ keywords: [[https://srfi.schemers.org/?keywords=modules][Modules]]
 
 This repository hosts [[https://srfi.schemers.org/srfi-261/][SRFI 261]]: Portable SRFI Library Reference, a [[https://srfi.schemers.org/][Scheme Request for Implementation]].
 
-This SRFI is in /draft/ status.
+This SRFI is in /final/ status.
 See also [[/srfi-97/][SRFI 97: SRFI Libraries]].
 The full documentation for this SRFI can be found in the [[https://srfi.schemers.org/srfi-261/srfi-261.html][SRFI Document]].
 
